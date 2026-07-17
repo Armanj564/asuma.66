@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asma</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,500&family=Quicksand:wght@400;500;600&display=swap');
+
+  :root{
+    --night: #241a35;
+    --night2: #33244a;
+    --gold: #e8b96a;
+    --blush: #f0b8c4;
+    --cream: #f7ece0;
+  }
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    background: linear-gradient(180deg, var(--night) 0%, var(--night2) 100%);
+    color: var(--cream);
+    font-family: 'Quicksand', sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  .stars{
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .star{
+    position: absolute;
+    background: var(--gold);
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: twinkle 3s ease-in-out infinite;
+  }
+
+  @keyframes twinkle{
+    0%, 100%{ opacity: 0.2; transform: scale(1); }
+    50%{ opacity: 0.9; transform: scale(1.4); }
+  }
+
+  section{
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 6vh 8vw;
+  }
+
+  .eyebrow{
+    font-size: 0.85rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--blush);
+    margin-bottom: 1.5rem;
+    opacity: 0.85;
+  }
+
+  h1{
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: clamp(1.7rem, 5.36vw, 3.27rem);
+    color: var(--gold);
+    line-height: 1.05;
+    margin-bottom: 1.2rem;
+  }
+
+  h1 em{
+    font-style: italic;
+    color: var(--blush);
+  }
+
+  .sub{
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    max-width: 32rem;
+    line-height: 1.7;
+    color: var(--cream);
+    opacity: 0.85;
+  }
+
+  .scroll-hint{
+    position: absolute;
+    bottom: 3rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--blush);
+    opacity: 0.6;
+    animation: bob 2.2s ease-in-out infinite;
+  }
+
+  @keyframes bob{
+    0%, 100%{ transform: translateY(0); }
+    50%{ transform: translateY(10px); }
+  }
+
+  .reasons{
+    display: flex;
+    flex-direction: column;
+    gap: 2.2rem;
+    max-width: 34rem;
+  }
+
+  .reason{
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    font-style: italic;
+    color: var(--cream);
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reason.visible{
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reason .num{
+    display: block;
+    font-family: 'Quicksand', sans-serif;
+    font-style: normal;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    margin-bottom: 0.6rem;
+    text-transform: uppercase;
+  }
+
+  .reveal-btn{
+    margin-top: 3rem;
+    padding: 1rem 2.6rem;
+    border-radius: 999px;
+    border: 1px solid var(--gold);
+    background: transparent;
+    color: var(--gold);
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: background 0.4s ease, color 0.4s ease, transform 0.3s ease;
+  }
+
+  .reveal-btn:hover{
+    background: var(--gold);
+    color: var(--night);
+    transform: scale(1.04);
+  }
+
+  .reveal-btn:focus-visible{
+    outline: 2px solid var(--blush);
+    outline-offset: 4px;
+  }
+
+  .confession-box{
+    max-width: 38rem;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 1s ease, max-height 1.2s ease;
+  }
+
+  .confession-box.open{
+    opacity: 1;
+    max-height: 800px;
+    margin-top: 2.5rem;
+  }
+
+  .confession-text{
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.3rem, 3vw, 1.7rem);
+    line-height: 1.9;
+    color: var(--blush);
+    padding: 2rem;
+    border: 1px solid rgba(232, 185, 106, 0.35);
+    border-radius: 18px;
+    background: rgba(255,255,255,0.03);
+  }
+
+  .signoff{
+    margin-top: 2.5rem;
+    font-size: 1rem;
+    color: var(--cream);
+    opacity: 0.75;
+  }
+
+  .heart-burst{
+    position: fixed;
+    pointer-events: none;
+    font-size: 1.4rem;
+    color: var(--blush);
+    animation: floatUp 2.4s ease-out forwards;
+    z-index: 5;
+  }
+
+  @keyframes floatUp{
+    0%{ opacity: 0; transform: translateY(0) scale(0.6); }
+    15%{ opacity: 1; }
+    100%{ opacity: 0; transform: translateY(-140px) scale(1.2); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .star, .scroll-hint, .heart-burst{ animation: none !important; }
+    .reason, .confession-box{ transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+
+<section id="hero">
+  <p class="eyebrow">for asma</p>
+  <h1>Asma (〃￣ー￣〃)</h1>
+  <p class="sub">Asma Jana Asma is beautiful Asma きれい Asma Tu es belle</p>
+  <p class="scroll-hint">Sahka Bne ↓</p>
+</section>
+
+<section id="reasons">
+  <div class="reasons">
+    <p class="reason"><span class="num">one</span>As dshem guhe xu bdama dange ta rushe hamiye o kaniya ta ch chara shbera mn nachet</p>
+    <p class="reason"><span class="num">two</span>o braye ta ahmad gaya har 5 daqa dbejet unicha o uwu</p>
+    <p class="reason"><span class="num">three</span>o beja braye xu ye mazn bas bheta mala wa sharma 3aiba zhna enate</p>
+    <p class="reason"><span class="num">four</span>o waxte as nav chaven ta dbenm as manzara dkame da janiya ta chaven mn na eshenn</p>
+  </div>
+</section>
+
+<section id="reveal">
+  <p class="eyebrow">Tu zani buche mn av website buta chekra tbla xu dgma bne da de zane</p>
+  <button class="reveal-btn" id="revealBtn">Vaka ▶️</button>
+  <div class="confession-box" id="confessionBox">
+    <p class="confession-text">Asma xude as 7ash ta dkam dame daspeke mn tu niyase dle mn kata ta bas mn na dviya bejma ta mn gut balke na bdle ta bt yan shek mn block bke d social da bas mn tu ya hay haka tu 7ash mn nakay chnina am har dshen bena haval (^_^)</p>
+    <p class="signoff">— asuma.66</p>
+  </div>
+</section>
+
+<script>
+  // ambient stars
+  const starsContainer = document.getElementById('stars');
+  const starCount = 40;
+  for(let i=0;i<starCount;i++){
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random()*2.5 + 1;
+    s.style.width = size+'px';
+    s.style.height = size+'px';
+    s.style.left = Math.random()*100+'vw';
+    s.style.top = Math.random()*100+'vh';
+    s.style.animationDelay = (Math.random()*3)+'s';
+    starsContainer.appendChild(s);
+  }
+
+  // scroll reveal for reasons
+  const reasons = document.querySelectorAll('.reason');
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.4 });
+  reasons.forEach(r=>observer.observe(r));
+
+  // reveal confession
+  const btn = document.getElementById('revealBtn');
+  const box = document.getElementById('confessionBox');
+  btn.addEventListener('click', ()=>{
+    box.classList.add('open');
+    btn.style.display = 'none';
+    spawnHearts();
+  });
+
+  function spawnHearts(){
+    const symbols = ['♥','✦','♡'];
+    for(let i=0;i<14;i++){
+      setTimeout(()=>{
+        const h = document.createElement('div');
+        h.className = 'heart-burst';
+        h.textContent = symbols[Math.floor(Math.random()*symbols.length)];
+        h.style.left = (45 + Math.random()*10) + 'vw';
+        h.style.top = '60vh';
+        document.body.appendChild(h);
+        setTimeout(()=>h.remove(), 2500);
+      }, i*100);
+    }
+  }
+</script>
+
+</body>
+</html>
